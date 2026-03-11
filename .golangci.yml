@@ -1,0 +1,47 @@
+version: "2"
+
+run:
+  go: "1.25"
+  tests: false
+  timeout: 5m
+
+issues:
+  fix: true
+
+formatters:
+  exclusions:
+    paths:
+      - ".*\\.pb\\.go"
+
+  enable:
+    - goimports
+
+linters:
+  exclusions:
+    paths:
+      - ".*\\.pb\\.go"
+
+  default: none
+  enable:
+    - importas
+    - errcheck
+    - unused
+    - whitespace
+    - govet
+    - ineffassign
+    - staticcheck
+    - gosec
+    - revive
+    - gocyclo
+    - lll
+    - mnd
+    - exhaustive
+    - funlen
+  settings:
+    funlen:
+      lines: 90
+      statements: 60
+    revive:
+      rules:
+        - name: exported
+          disabled: true

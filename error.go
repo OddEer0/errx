@@ -59,7 +59,7 @@ func (e *Error) Format(f fmt.State, verb rune) {
 	case 'q':
 		_, _ = fmt.Fprintf(f, "%q", e.Error())
 	default:
-		_, _ = fmt.Fprintf(f, "%s (codex: %d)", e.Error(), e.code)
+		_, _ = fmt.Fprintf(f, "code %s: %s", e.code, e.Error())
 	}
 }
 
@@ -97,4 +97,32 @@ func HasCode(err error) bool {
 		return false
 	}
 	return true
+}
+
+func As(err error, target interface{}) bool {
+	return errors.As(err, target)
+}
+
+func Is(err error, target error) bool {
+	return errors.Is(err, target)
+}
+
+func Cause(err error) error {
+	return errors.Cause(err)
+}
+
+func Wrap(err error, msg string) error {
+	return errors.WithMessage(err, msg)
+}
+
+func Wrapf(err error, format string, args ...interface{}) error {
+	return errors.WithMessagef(err, format, args...)
+}
+
+func Unwrap(err error) error {
+	return errors.Unwrap(err)
+}
+
+func WithStack(err error) error {
+	return errors.WithStack(err)
 }

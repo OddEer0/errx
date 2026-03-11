@@ -1,5 +1,7 @@
 package codex
 
+import "strconv"
+
 type Code int
 
 const (
@@ -21,3 +23,31 @@ const (
 	DataLoss           Code = 15
 	Unauthenticated    Code = 16
 )
+
+var msg = map[Code]string{
+	OK:                 "OK",
+	Canceled:           "Canceled",
+	Unknown:            "Unknown",
+	InvalidArgument:    "InvalidArgument",
+	DeadlineExceeded:   "DeadlineExceeded",
+	NotFound:           "NotFound",
+	AlreadyExists:      "AlreadyExists",
+	PermissionDenied:   "PermissionDenied",
+	ResourceExhausted:  "ResourceExhausted",
+	FailedPrecondition: "FailedPrecondition",
+	Aborted:            "Aborted",
+	OutOfRange:         "OutOfRange",
+	Unimplemented:      "Unimplemented",
+	Internal:           "Internal",
+	Unavailable:        "Unavailable",
+	DataLoss:           "DataLoss",
+	Unauthenticated:    "Unauthenticated",
+}
+
+func (c Code) String() string {
+	m, ok := msg[c]
+	if ok {
+		return m
+	}
+	return strconv.Itoa(int(c))
+}
