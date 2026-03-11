@@ -4,6 +4,10 @@ env:
   GO_VERSION: '1.25'
   GOLANGCI_LINT_VERSION: 'v2.10.1'
 
+  PATH_BIN_DIR: '{{.ROOT_DIR}}/bin'
+  PATH_GOLANGCI_LINT: '{{.PATH_BIN_DIR}}/golangci-lint'
+  PATH_GOLANGCI_LINT_CONFIG: '.golangci.yml'
+
 tasks:
   install-linters:
     desc: "install linters to bin"
@@ -21,6 +25,12 @@ tasks:
     deps: [ install-linters ]
     cmds:
       - '{{.PATH_GOLANGCI_LINT}} run ./... --config={{.PATH_GOLANGCI_LINT_CONFIG}}'
+
+  lintfix:
+    desc: "start lint on all module"
+    deps: [ install-linters ]
+    cmds:
+      - '{{.PATH_GOLANGCI_LINT}} run ./... --fix --config={{.PATH_GOLANGCI_LINT_CONFIG}}'
 
   test:
     desc: "testing project"

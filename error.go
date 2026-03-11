@@ -93,10 +93,7 @@ func HasCode(err error) bool {
 		return false
 	}
 	var e *Error
-	if !errors.As(err, &e) {
-		return false
-	}
-	return true
+	return errors.As(err, &e)
 }
 
 func As(err error, target interface{}) bool {
